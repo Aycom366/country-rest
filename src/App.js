@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Country from "./components/Country";
+import Header from "./components/Header";
+import { useGlobalContext } from "./context";
 
 function App() {
+  const { isDark } = useGlobalContext();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`${isDark ? "w-full  dark" : "w-full "}`}>
+      <Router>
+        <div className=" h-screen transition duration-500 bg-primary dark:bg-secondary">
+          <Header />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/:slug" component={Country} />
+          </Switch>
+        </div>
+      </Router>
     </div>
   );
 }
