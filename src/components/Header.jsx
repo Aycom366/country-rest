@@ -4,7 +4,7 @@ import light from "../assets/sun.png";
 import dark from "../assets/dark.svg";
 
 function Header() {
-  const { isDark } = useGlobalContext();
+  const { isDark, setIsDark } = useGlobalContext();
   return (
     <div className=" bg-white dark:bg-headerBackground   shadow flex justify-between w-full">
       <section className=" text-colorDark dark:text-colorLight mx-auto px-4 md:px-8 py-7 md:py-6 max-w-screen-xl flex justify-between w-full">
@@ -12,6 +12,7 @@ function Header() {
           Where in the world
         </h2>
         <button
+          onClick={() => setIsDark(!isDark)}
           aria-label="toggle theme"
           className="flex cursor-pointer h-full items-center"
         >
