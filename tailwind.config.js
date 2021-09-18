@@ -7,12 +7,15 @@ module.exports = {
       current: "currentColor",
       colorLight: "var(--colorLight)",
       colorDark: "var(--colorDark)",
+      inputLight: "var(--inputLight)",
+      inputDark: "var(--inputDark)",
     },
     backgroundColor: (theme) => ({
       ...theme("colors"),
       primary: "#f2f2f2",
       secondary: "#202C36",
       headerBackground: "#2B3844",
+      headerbBackgroundWhite: "#fff",
     }),
 
     extend: {
@@ -33,6 +36,7 @@ module.exports = {
     },
   },
   variants: {
+    transitionProperty: ["responsive", "motion-safe", "motion-reduce"],
     extend: {},
   },
   plugins: [],

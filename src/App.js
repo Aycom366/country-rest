@@ -8,9 +8,11 @@ import { useGlobalContext } from "./context";
 function App() {
   const { isDark } = useGlobalContext();
   return (
-    <div className={`${isDark ? "w-full  dark" : "w-full "}`}>
+    <div
+      className={`${isDark ? "w-full  box-border dark" : "w-full box-border"}`}
+    >
       <Router>
-        <div className=" h-screen transition duration-500 bg-primary dark:bg-secondary">
+        <div className=" h-screen  bg-primary dark:bg-secondary">
           <Header />
           <Switch>
             <Route exact path="/" component={Home} />

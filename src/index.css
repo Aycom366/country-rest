@@ -3,8 +3,8 @@
   --colorLight: #ffffff;
   --backLight: #f2f2f2;
   --backDark: #202c36;
-  --lightPlace: #848484;
-  --darkPlace: #ffffff;
+  --inputLight: #848484;
+  --inputDark: #ffffff;
 }
 
 @tailwind base;
