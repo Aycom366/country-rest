@@ -6,8 +6,23 @@ import { useGlobalContext } from "../context";
 import { Transition } from "@headlessui/react";
 
 function Home() {
-  const { isDark, isFilter, setIsFilter, continents } = useGlobalContext();
+  const {
+    isDark,
+    RegionFilter,
+    isLoading,
+    isFilter,
+    ToggleFilter,
+    continents,
+    filterCountries,
+    searchTerm,
+    setSearchTerm,
+  } = useGlobalContext();
+
   const inputSearch = useRef();
+
+  const searchCountry = () => {
+    setSearchTerm(inputSearch.current.value);
+  };
 
   //focus on the inputSearch if the parent container is clicked
   const handleFocus = () => {
@@ -15,16 +30,20 @@ function Home() {
   };
 
   const handlefiltering = (e) => {
-    console.log(e.current.name);
+    RegionFilter(e.target.name);
   };
 
   return (
-    <div className="flex  px-4 md:px-8 flex-col w-full mx-auto max-w-screen-xl">
+    <div
+      className={`flex pt-24 px-4 md:px-8 flex-col w-full mx-auto max-w-screen-xl ${
+        filterCountries.length <= 4 && "h-screen"
+      }`}
+    >
       {/* search section */}
-      <div className="flex justify-between items-start md:items-center flex-col md:flex-row pt-6">
+      <div className="flex justify-between items-start md:items-center flex-col sm:flex-row pt-6">
         {/* container to hold icon and input */}
         <div
-          className="flex transition duration-500 shadow rounded-sm  flex-row px-8 dark:bg-headerBackground bg-headerbBackgroundWhite py-4 mb-10 md:mb-0 w-full md:max-w-lg"
+          className="flex transition duration-500 shadow rounded-sm  flex-row px-8 dark:bg-headerBackground bg-headerbBackgroundWhite py-4 mb-10 md:mb-0 w-full sm:w-auto md:w-full md:max-w-lg"
           onClick={handleFocus}
         >
           <img
@@ -38,6 +57,7 @@ function Home() {
             className="bg-transparent border-none outline-none text-inputLight dark:text-inputDark "
             placeholder="search for a country..."
             ref={inputSearch}
+            onChange={searchCountry}
           />
         </div>
 
@@ -45,9 +65,9 @@ function Home() {
         <div className="relative  ">
           <button
             className="flex w-full dark:bg-headerBackground bg-headerbBackgroundWhite text-inputLight dark:text-inputDark border-none outline-none py-4 px-4  items-center duration-500 rounded-sm mb-1  "
-            onClick={() => setIsFilter(!isFilter)}
+            onClick={ToggleFilter}
           >
-            <p className="pr-8">Filter by Region</p>
+            <p className="pr-8 sm:text-small text-smaller">Filter by Region</p>
             <img
               aria-label="Active Filtering Icon"
               src={isDark ? arrowDownDark : arrowDownLight}
@@ -57,14 +77,14 @@ function Home() {
           <Transition
             as={Fragment}
             show={isFilter}
-            enter="transform transition duration-[400ms]"
+            enter="transform transition duration-[100ms]"
             enterFrom="opacity-0 rotate-[-120deg] scale-50"
             enterTo="opacity-100 rotate-0 scale-100"
             leave="transform duration-200 transition ease-in-out"
             leaveFrom="opacity-100 rotate-0 scale-100 "
             leaveTo="opacity-0 scale-95 "
           >
-            <ul className="flex dark:bg-headerBackground bg-headerbBackgroundWhite text-inputLight dark:text-inputDark py-4 px-4 w-full shadow absolute flex-col ">
+            <ul className="flex transition duration-500 dark:bg-headerBackground bg-headerbBackgroundWhite text-inputLight dark:text-inputDark py-4 px-4 w-full shadow absolute flex-col ">
               {continents.map((con) => {
                 const { id, name } = con;
                 return (
@@ -84,8 +104,67 @@ function Home() {
         </div>
       </div>
 
-      {/* countires information */}
-      <div></div>
+      {isLoading ? (
+        <p>loading...</p>
+      ) : (
+        <div
+          className={` ${
+            filterCountries.length > 0
+              ? " grid gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 lg:grid-cols-4  mt-8 sm:mt-16"
+              : "flex justify-center items-center h-full w-full"
+          }  `}
+        >
+          {filterCountries.length < 1 ? (
+            <h2 className="text-2xl sm:text-5xl text-colorDark dark:text-colorLight">
+              Oops, not found!
+            </h2>
+          ) : (
+            <>
+              {/* single country container */}
+              {filterCountries.map((country, index) => {
+                const { flag, region, population, capital, name } = country;
+                return (
+                  <div
+                    key={index}
+                    className=" transition duration-500 w-full  flex flex-col items-start mx-auto h-full rounded-sm shadow bg-headerbBackgroundWhite dark:bg-headerBackground"
+                  >
+                    {/* img container */}
+                    <div className="w-full h-40">
+                      <img
+                        className="w-full h-full object-cover "
+                        aria-label="Flags Image"
+                        src={flag}
+                        alt=""
+                      />
+                    </div>
+                    {/* country information */}
+                    <article className="pt-6 px-6 pb-12">
+                      <h3 className="mb-4 text-colorDark dark:text-colorLight text-big leading-6 font-extra">
+                        {name}
+                      </h3>
+                      <div>
+                        <p className="font-bold text-colorDark dark:text-colorLight mb-2 text-small leading-4">
+                          Population:{" "}
+                          <span className="font-normal">
+                            {population.toLocaleString()}
+                          </span>
+                        </p>
+                        <p className="font-bold text-colorDark dark:text-colorLight mb-2 text-small leading-4">
+                          Region: <span className="font-normal">{region}</span>
+                        </p>
+                        <p className="font-bold text-colorDark dark:text-colorLight text-small leading-4">
+                          Capital:{" "}
+                          <span className="font-normal">{capital}</span>
+                        </p>
+                      </div>
+                    </article>
+                  </div>
+                );
+              })}
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,52 +1,102 @@
 import axios from "axios";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useReducer, useEffect } from "react";
+import { reducer } from "./reducers/reducer";
+import { ActionType } from "./constant/Actions";
+
 const apiUrl = "https://restcountries.eu/rest/v2/all";
 
 //list of continent name  avaiable to filter
 const continents = [
   {
     id: 1,
-    name: "Africa",
+    name: "All",
   },
   {
     id: 2,
-    name: "America",
+    name: "Africa",
   },
   {
     id: 3,
-    name: "Asia",
+    name: "Americas",
   },
   {
     id: 4,
-    name: "Europe",
+    name: "Asia",
   },
   {
     id: 5,
+    name: "Europe",
+  },
+  {
+    id: 6,
     name: "Oceania",
   },
 ];
 
-const getCountries = async () => {
-  await axios
-    .get(apiUrl)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => console.error(`Error: ${error}`));
+const initialState = {
+  isDark: false,
+  isFilter: false,
+  countries: [],
+  continents: continents,
+  singleCountry: null,
+  isLoading: false,
+  filterCountries: [],
+  Region: "All",
+  searchTerm: "",
 };
 
 const AppContext = React.createContext();
 export const AppProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(false);
-  const [isFilter, setIsFilter] = useState(true);
-  const [countries, setcountries] = useState();
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const getCountries = async () => {
+    dispatch({ type: ActionType.ChangeLoading });
+    await axios
+      .get(apiUrl)
+      .then((response) => {
+        dispatch({ type: ActionType.Load_Items, payload: response.data });
+      })
+      .catch((error) => {
+        dispatch({ type: ActionType.Errorr });
+        console.error(`Error: ${error}`);
+      });
+  };
+
+  const changeTheme = () => {
+    dispatch({ type: ActionType.Theme });
+  };
+
+  const RegionFilter = (name) => {
+    dispatch({
+      type: ActionType.RegionFiltering,
+      payload: name,
+      modify: searchTerm,
+    });
+  };
+
+  const ToggleFilter = () => {
+    dispatch({ type: ActionType.ToggleFiltering });
+  };
 
   useEffect(() => {
     getCountries();
   }, []);
+
+  useEffect(() => {
+    dispatch({ type: ActionType.NameFiltering, payload: searchTerm });
+  }, [searchTerm]);
+
   return (
     <AppContext.Provider
-      value={{ isDark, continents, setIsDark, isFilter, setIsFilter }}
+      value={{
+        ...state,
+        changeTheme,
+        ToggleFilter,
+        RegionFilter,
+        searchTerm,
+        setSearchTerm,
+      }}
     >
       {children}
     </AppContext.Provider>

@@ -9,10 +9,12 @@ function App() {
   const { isDark } = useGlobalContext();
   return (
     <div
-      className={`${isDark ? "w-full  box-border dark" : "w-full box-border"}`}
+      className={`${
+        isDark ? "w-full h-full  box-border dark" : "w-full h-full box-border"
+      }`}
     >
       <Router>
-        <div className=" h-screen  bg-primary dark:bg-secondary">
+        <div className=" h-full w-full bg-primary dark:bg-secondary">
           <Header />
           <Switch>
             <Route exact path="/" component={Home} />

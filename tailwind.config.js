@@ -32,6 +32,7 @@ module.exports = {
         normal: "1rem",
         big: "18px",
         bold: "24px",
+        smaller: "12px",
       },
     },
   },
