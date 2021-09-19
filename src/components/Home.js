@@ -4,6 +4,7 @@ import arrowDownLight from "../assets/expand-more.svg";
 import arrowDownDark from "../assets/expand-more-dark.svg";
 import { useGlobalContext } from "../context";
 import { Transition } from "@headlessui/react";
+import { Link } from "react-router-dom";
 
 function Home() {
   const {
@@ -14,8 +15,8 @@ function Home() {
     ToggleFilter,
     continents,
     filterCountries,
-    searchTerm,
     setSearchTerm,
+    getWidth,
   } = useGlobalContext();
 
   const inputSearch = useRef();
@@ -36,7 +37,8 @@ function Home() {
   return (
     <div
       className={`flex pt-24 px-4 md:px-8 flex-col w-full mx-auto max-w-screen-xl ${
-        filterCountries.length <= 4 && "h-screen"
+        filterCountries.length <= 1 ||
+        (filterCountries.length <= 4 && getWidth > 600 && "h-screen")
       }`}
     >
       {/* search section */}
@@ -124,7 +126,8 @@ function Home() {
               {filterCountries.map((country, index) => {
                 const { flag, region, population, capital, name } = country;
                 return (
-                  <div
+                  <Link
+                    to={`/${name}`}
                     key={index}
                     className=" transition duration-500 w-full  flex flex-col items-start mx-auto h-full rounded-sm shadow bg-headerbBackgroundWhite dark:bg-headerBackground"
                   >
@@ -134,7 +137,7 @@ function Home() {
                         className="w-full h-full object-cover "
                         aria-label="Flags Image"
                         src={flag}
-                        alt=""
+                        alt={name}
                       />
                     </div>
                     {/* country information */}
@@ -158,7 +161,7 @@ function Home() {
                         </p>
                       </div>
                     </article>
-                  </div>
+                  </Link>
                 );
               })}
             </>

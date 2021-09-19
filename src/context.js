@@ -45,9 +45,22 @@ const initialState = {
   searchTerm: "",
 };
 
+const getwindowsDimension = () => {
+  const { innerWidth: width } = window;
+  return width;
+};
+
 const AppContext = React.createContext();
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [getWidth, setGetWidth] = useState(getwindowsDimension);
+
+  useEffect(() => {
+    const handleResize = () => setGetWidth(getwindowsDimension());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const getCountries = async () => {
@@ -96,6 +109,7 @@ export const AppProvider = ({ children }) => {
         RegionFilter,
         searchTerm,
         setSearchTerm,
+        getWidth,
       }}
     >
       {children}

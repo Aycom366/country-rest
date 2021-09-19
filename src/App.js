@@ -10,7 +10,7 @@ function App() {
   return (
     <div
       className={`${
-        isDark ? "w-full h-full  box-border dark" : "w-full h-full box-border"
+        isDark ? "w-full h-full box-border dark" : "w-full h-full box-border"
       }`}
     >
       <Router>
