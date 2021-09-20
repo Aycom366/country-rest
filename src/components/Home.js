@@ -37,8 +37,9 @@ function Home() {
   return (
     <div
       className={`flex pt-24 px-4 md:px-8 flex-col w-full mx-auto max-w-screen-xl ${
-        filterCountries.length <= 1 ||
-        (filterCountries.length <= 4 && getWidth > 600 && "h-screen")
+        filterCountries.length <= 4 && getWidth > 600
+          ? "h-screen"
+          : filterCountries.length <= 1 && getWidth < 600 && "h-screen"
       }`}
     >
       {/* search section */}

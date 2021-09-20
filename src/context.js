@@ -43,6 +43,7 @@ const initialState = {
   filterCountries: [],
   Region: "All",
   searchTerm: "",
+  dictionary: {},
 };
 
 const getwindowsDimension = () => {
@@ -54,6 +55,10 @@ const AppContext = React.createContext();
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [getWidth, setGetWidth] = useState(getwindowsDimension);
+
+  const getSingleCountry = (name) => {
+    dispatch({ type: ActionType.SingleCountry, payload: name });
+  };
 
   useEffect(() => {
     const handleResize = () => setGetWidth(getwindowsDimension());
@@ -69,6 +74,7 @@ export const AppProvider = ({ children }) => {
       .get(apiUrl)
       .then((response) => {
         dispatch({ type: ActionType.Load_Items, payload: response.data });
+        dispatch({ type: ActionType.Abbr, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionType.Errorr });
@@ -110,6 +116,7 @@ export const AppProvider = ({ children }) => {
         searchTerm,
         setSearchTerm,
         getWidth,
+        getSingleCountry,
       }}
     >
       {children}

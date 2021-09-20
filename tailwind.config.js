@@ -10,6 +10,7 @@ module.exports = {
       inputLight: "var(--inputLight)",
       inputDark: "var(--inputDark)",
     },
+
     backgroundColor: (theme) => ({
       ...theme("colors"),
       primary: "#f2f2f2",
@@ -33,6 +34,7 @@ module.exports = {
         big: "18px",
         bold: "24px",
         smaller: "12px",
+        extraBold: "32px",
       },
     },
   },

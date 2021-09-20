@@ -18,12 +18,24 @@ export const reducer = (state, action) => {
         isLoading: false,
       };
 
+    //formating alpha3code
+    case ActionType.Abbr: {
+      const dict = action.payload.reduce((acc, curr) => {
+        acc[curr.alpha3Code] = curr.name;
+        return acc;
+      }, {});
+      return { ...state, dictionary: dict };
+    }
+
+    //toggling filtering show or hide
     case ActionType.ToggleFiltering:
       return { ...state, isFilter: !state.isFilter };
 
+    //toggling theme status
     case ActionType.Theme:
       return { ...state, isDark: !state.isDark };
 
+    //handling name filtering
     case ActionType.NameFiltering: {
       let tempcountry;
       let name = formatLetter(action.payload);
@@ -41,9 +53,15 @@ export const reducer = (state, action) => {
       return { ...state, filterCountries: tempcountry };
     }
 
+    case ActionType.SingleCountry: {
+      let tempSinglecountry = state.countries.find(
+        (country) => country.name === action.payload
+      );
+      return { ...state, singleCountry: tempSinglecountry };
+    }
+
     case ActionType.RegionFiltering: {
       const name = action.payload;
-
       let tempCountry;
       if (name === "All") {
         tempCountry = state.countries;
@@ -57,7 +75,6 @@ export const reducer = (state, action) => {
           (region) => region.region === name
         );
       }
-
       return {
         ...state,
         filterCountries: tempCountry,
