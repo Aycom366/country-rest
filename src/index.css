@@ -5,8 +5,14 @@
   --backDark: #202c36;
   --inputLight: #848484;
   --inputDark: #ffffff;
+  scroll-behavior: smooth;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layers utilities {
+  .scrollbehavior: {
+    scroll-behavior: smooth;
+  }
+}

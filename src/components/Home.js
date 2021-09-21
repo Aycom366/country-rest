@@ -17,6 +17,7 @@ function Home() {
     filterCountries,
     setSearchTerm,
     getWidth,
+    Region,
   } = useGlobalContext();
 
   const inputSearch = useRef();
@@ -46,6 +47,7 @@ function Home() {
       <div className="flex justify-between items-start md:items-center flex-col sm:flex-row pt-6">
         {/* container to hold icon and input */}
         <div
+          data-aos="fade-right"
           className="flex transition duration-500 shadow rounded-sm  flex-row px-8 dark:bg-headerBackground bg-headerbBackgroundWhite py-4 mb-10 md:mb-0 w-full sm:w-auto md:w-full md:max-w-lg"
           onClick={handleFocus}
         >
@@ -65,12 +67,16 @@ function Home() {
         </div>
 
         {/* filtring section */}
-        <div className="relative  ">
+        <div
+          data-aos="fade-left"
+          data-aos-delay="200"
+          className="relative z-10"
+        >
           <button
-            className="flex w-full dark:bg-headerBackground bg-headerbBackgroundWhite text-inputLight dark:text-inputDark border-none outline-none py-4 px-4  items-center duration-500 rounded-sm mb-1  "
+            className="flex w-40 justify-between  dark:bg-headerBackground bg-headerbBackgroundWhite text-inputLight dark:text-inputDark border-none outline-none py-4 px-4  items-center duration-500 rounded-sm mb-1  "
             onClick={ToggleFilter}
           >
-            <p className="pr-8 sm:text-small text-smaller">Filter by Region</p>
+            <p className=" sm:text-small text-smaller">{Region}</p>
             <img
               aria-label="Active Filtering Icon"
               src={isDark ? arrowDownDark : arrowDownLight}
@@ -108,17 +114,22 @@ function Home() {
       </div>
 
       {isLoading ? (
-        <p>loading...</p>
+        <div className="flex w-full h-full justify-center items-center">
+          <i className="text-extraBold font-extra animate-spin fas fa-spinner"></i>
+        </div>
       ) : (
         <div
           className={` ${
             filterCountries.length > 0
-              ? " grid gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 lg:grid-cols-4  mt-8 sm:mt-16"
+              ? " grid gap-y-10 grid-cols-1 sm:grid-cols-2 sm:mb-16 md:grid-cols-3 gap-x-4 lg:grid-cols-4  mt-8 sm:mt-16"
               : "flex justify-center items-center h-full w-full"
           }  `}
         >
           {filterCountries.length < 1 ? (
-            <h2 className="text-2xl sm:text-5xl text-colorDark dark:text-colorLight">
+            <h2
+              data-aos="fade-right"
+              className="text-2xl sm:text-5xl text-colorDark dark:text-colorLight"
+            >
               Oops, not found!
             </h2>
           ) : (
@@ -128,9 +139,11 @@ function Home() {
                 const { flag, region, population, capital, name } = country;
                 return (
                   <Link
+                    data-aos="fade-up"
+                    data-aos-delay="200"
                     to={`/${name}`}
                     key={index}
-                    className=" transition duration-500 w-full  flex flex-col items-start mx-auto h-full rounded-sm shadow bg-headerbBackgroundWhite dark:bg-headerBackground"
+                    className="z-0 transition duration-500 w-full  flex flex-col items-start mx-auto h-full rounded-sm shadow bg-headerbBackgroundWhite dark:bg-headerBackground"
                   >
                     {/* img container */}
                     <div className="w-full h-40">

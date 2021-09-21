@@ -4,16 +4,20 @@ import Home from "./components/Home";
 import Country from "./components/Country";
 import Header from "./components/Header";
 import { useGlobalContext } from "./context";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   const { isDark } = useGlobalContext();
   return (
     <div
       className={`${
-        isDark ? "w-full h-full box-border dark" : "w-full h-full box-border"
+        isDark
+          ? "w-full h-full box-border scrollbehavior dark"
+          : "w-full h-full scrollbehavior box-border"
       }`}
     >
       <Router>
+        <ScrollToTop />
         <div className=" h-full w-full bg-primary dark:bg-secondary">
           <Header />
           <Switch>

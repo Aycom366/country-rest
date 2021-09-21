@@ -41,6 +41,7 @@ function Country() {
       >
         <div className="mb-12">
           <button
+            data-aos="fade-right"
             className=" bg-headerbBackgroundWhite transition duration-500 dark:bg-headerBackground text-inputLight outline-none border-none shadow-lg flex justify-center py-2 rounded-md  px-6 items-center dark:text-inputDark"
             onClick={history.goBack}
           >
@@ -56,7 +57,11 @@ function Country() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-14 gap-x-0 sm:gap-x-8 md:gap-x-16 lg:gap-x-32 w-full">
           {/* image container div */}
-          <div className="h-extra w-full">
+          <div
+            data-aos="fade-right"
+            data-aos-delay="100"
+            className="h-extra w-full"
+          >
             <img
               aria-label="Flag image"
               src={flag}
@@ -66,12 +71,15 @@ function Country() {
           </div>
           {/* country info container */}
           <section className="mb-20 sm:mb-0  grid grid-cols-1 gap-y-8">
-            <h2 className="text-colorDark transition duration-500  dark:text-colorLight font-extraBold font-extra leading-10">
+            <h2
+              data-aos="fade-left"
+              className="text-colorDark transition duration-500  dark:text-colorLight font-extraBold font-extra leading-10"
+            >
               {name}
             </h2>
             {/* country details informations container */}
             <div className="grid gap-y-4 grid-cols-1 sm:grid-cols-2 ">
-              <div>
+              <div data-aos="fade-left" data-aos-delay="200">
                 <p className="font-bold text-colorDark dark:text-colorLight text-small  transition duration-500 leading-8">
                   Native Name: <span className="font-normal">{nativeName}</span>
                 </p>
@@ -91,7 +99,7 @@ function Country() {
                   Capital: <span className="font-normal">{capital}</span>
                 </p>
               </div>
-              <div>
+              <div data-aos="fade-left" data-aos-delay="400">
                 <p className="font-bold transition duration-500 text-colorDark dark:text-colorLight text-small leading-8">
                   Top Level Domain:{" "}
                   <span className="font-normal">{topLevelDomain}</span>
@@ -127,17 +135,21 @@ function Country() {
               </div>
             </div>
             {/* border countries container */}
-            <div className="borderClass h-full  font-small w-full">
+            <div
+              data-aos="fade-left"
+              data-aos-delay="600"
+              className="borderClass h-full flex flex-col sm:flex-row justify-between  font-small w-full"
+            >
               <p className="font-bold text-colorDark dark:text-colorLight transition duration-500  text-small leading-8  mr-0 sm:mr-2 ">
                 Border Countries:
               </p>
-              <div className=" h-full ">
+              <div className=" grid grid-cols-3 gap-2">
                 {borderResult.map((border, index) => {
                   return (
                     <Link
                       key={index}
                       to={`/${border}`}
-                      className="border-none outline-none py-2 items-center justify-between rounded-sm shadow bg-headerbBackgroundWhite dark:bg-headerBackground transition duration-500 px-4 w-full dark:text-inputDark text-inputLight"
+                      className="border-none outline-none py-2 flex items-center justify-center rounded-sm shadow bg-headerbBackgroundWhite dark:bg-headerBackground transition duration-500 px-4 w-full h-full dark:text-inputDark text-inputLight"
                     >
                       {border}
                     </Link>
@@ -152,10 +164,15 @@ function Country() {
   }
   return (
     <div className="flex w-full flex-col sm:flex-col h-screen items-center justify-center">
-      <p className="font-extra pr-2  text-colorDark dark:text-colorLight font-extraBold leading-10 ">
+      <p
+        data-aos="fade-down"
+        className="font-extra pr-2  text-colorDark dark:text-colorLight font-extraBold leading-10 "
+      >
         Error displaying Country's Info!
       </p>
       <button
+        data-aos="fade-up"
+        data-aos-delay="200"
         className=" bg-headerbBackgroundWhite dark:bg-headerBackground transition duration-500  text-inputLight outline-none border-none shadow-lg flex justify-center py-2 rounded-md  px-6 items-center dark:text-inputDark"
         onClick={history.goBack}
       >
