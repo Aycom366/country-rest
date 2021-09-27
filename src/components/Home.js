@@ -20,8 +20,10 @@ function Home() {
     Region,
   } = useGlobalContext();
 
+  //initialize useRef mainly to get hold of the input
   const inputSearch = useRef();
 
+  //onchange of the search input, set searchTerm in context state for toggling Nations
   const searchCountry = () => {
     setSearchTerm(inputSearch.current.value);
   };
@@ -31,6 +33,7 @@ function Home() {
     inputSearch.current.focus();
   };
 
+  //handle filtering by Regions
   const handlefiltering = (e) => {
     RegionFilter(e.target.name);
   };
@@ -83,6 +86,8 @@ function Home() {
               alt="Arrow"
             />
           </button>
+
+          {/* imported from headlessui tailwind frameworks  */}
           <Transition
             as={Fragment}
             show={isFilter}
@@ -115,7 +120,9 @@ function Home() {
 
       {isLoading ? (
         <div className="flex w-full h-full justify-center items-center">
-          <i className="text-extraBold font-extra animate-spin fas fa-spinner"></i>
+          <p className="text-bold font-extra text-colorDark dark:text-colorLight ">
+            Loading...
+          </p>
         </div>
       ) : (
         <div
@@ -136,7 +143,7 @@ function Home() {
             <>
               {/* single country container */}
               {filterCountries.map((country, index) => {
-                const { flag, region, population, capital, name } = country;
+                const { flags, continent, population, capital, name } = country;
                 return (
                   <Link
                     data-aos="fade-up"
@@ -150,7 +157,7 @@ function Home() {
                       <img
                         className="w-full h-full object-cover "
                         aria-label="Flags Image"
-                        src={flag}
+                        src={flags[0]}
                         alt={name}
                       />
                     </div>
@@ -167,7 +174,8 @@ function Home() {
                           </span>
                         </p>
                         <p className="font-bold text-colorDark dark:text-colorLight mb-2 text-small leading-4">
-                          Region: <span className="font-normal">{region}</span>
+                          Region:{" "}
+                          <span className="font-normal">{continent}</span>
                         </p>
                         <p className="font-bold text-colorDark dark:text-colorLight text-small leading-4">
                           Capital:{" "}

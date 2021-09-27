@@ -18,12 +18,12 @@ function Country() {
 
   if (singleCountry !== null && singleCountry !== undefined) {
     const {
-      flag,
+      flags,
       name,
       population,
       topLevelDomain,
+      continent,
       region,
-      subregion,
       borders,
       capital,
       currencies,
@@ -63,8 +63,8 @@ function Country() {
             className="h-extra w-full"
           >
             <img
-              aria-label="Flag image"
-              src={flag}
+              aria-label="flags image"
+              src={flags[0]}
               className="w-full h-full object-cover"
               alt={name}
             />
@@ -90,10 +90,10 @@ function Country() {
                   </span>
                 </p>
                 <p className="font-bold text-colorDark dark:text-colorLight transition duration-500  text-small leading-8">
-                  Region: <span className="font-normal">{region}</span>
+                  continent: <span className="font-normal">{continent}</span>
                 </p>
                 <p className="font-bold transition duration-500  text-colorDark dark:text-colorLight text-small leading-8">
-                  Sub Region: <span className="font-normal">{subregion}</span>
+                  Sub continent: <span className="font-normal">{region}</span>
                 </p>
                 <p className="font-bold transition duration-500  text-colorDark dark:text-colorLight text-small leading-8">
                   Capital: <span className="font-normal">{capital}</span>

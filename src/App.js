@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Country from "./components/Country";
@@ -7,7 +7,12 @@ import { useGlobalContext } from "./context";
 import ScrollToTop from "./ScrollToTop";
 
 function App() {
-  const { isDark } = useGlobalContext();
+  const { isDark, getCountries } = useGlobalContext();
+
+  useEffect(() => {
+    getCountries();
+  }, []);
+
   return (
     <div
       className={`${

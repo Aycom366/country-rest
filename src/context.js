@@ -3,7 +3,7 @@ import React, { useState, useContext, useReducer, useEffect } from "react";
 import { reducer } from "./reducers/reducer";
 import { ActionType } from "./constant/Actions";
 
-const apiUrl = "https://restcountries.eu/rest/v2/all";
+const apiUrl = "https://restcountries.com/v2/all";
 
 //list of continent name  avaiable to filter
 const continents = [
@@ -99,10 +99,6 @@ export const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getCountries();
-  }, []);
-
-  useEffect(() => {
     dispatch({ type: ActionType.NameFiltering, payload: searchTerm });
   }, [searchTerm]);
 
@@ -114,6 +110,7 @@ export const AppProvider = ({ children }) => {
         ToggleFilter,
         RegionFilter,
         searchTerm,
+        getCountries,
         setSearchTerm,
         getWidth,
         getSingleCountry,
