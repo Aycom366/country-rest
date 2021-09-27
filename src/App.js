@@ -17,8 +17,8 @@ function App() {
     <div
       className={`${
         isDark
-          ? "w-full h-full box-border scrollbehavior dark"
-          : "w-full h-full scrollbehavior box-border"
+          ? "w-full overflow-hidden h-full box-border scrollbehavior dark"
+          : "w-full overflow-hidden h-full scrollbehavior box-border"
       }`}
     >
       <Router>
