@@ -22,8 +22,8 @@ function Country() {
       name,
       population,
       topLevelDomain,
-      continent,
       region,
+      subregion,
       borders,
       capital,
       currencies,
@@ -64,7 +64,7 @@ function Country() {
           >
             <img
               aria-label="flags image"
-              src={flags[0]}
+              src={flags.svg}
               className="w-full h-full object-cover"
               alt={name}
             />
@@ -90,10 +90,10 @@ function Country() {
                   </span>
                 </p>
                 <p className="font-bold text-colorDark dark:text-colorLight transition duration-500  text-small leading-8">
-                  continent: <span className="font-normal">{continent}</span>
+                  region: <span className="font-normal">{region}</span>
                 </p>
                 <p className="font-bold transition duration-500  text-colorDark dark:text-colorLight text-small leading-8">
-                  Sub continent: <span className="font-normal">{region}</span>
+                  Sub region: <span className="font-normal">{subregion}</span>
                 </p>
                 <p className="font-bold transition duration-500  text-colorDark dark:text-colorLight text-small leading-8">
                   Capital: <span className="font-normal">{capital}</span>

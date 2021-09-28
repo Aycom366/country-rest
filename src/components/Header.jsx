@@ -7,10 +7,7 @@ import { Link } from "react-router-dom";
 function Header() {
   const { isDark, changeTheme } = useGlobalContext();
   return (
-    <div
-      data-aos="fade-right"
-      className="fixed  bg-headerbBackgroundWhite z-20 dark:bg-headerBackground transition duration-500 shadow flex justify-between w-full"
-    >
+    <div className="fixed overflow-hidden bg-headerbBackgroundWhite z-20 dark:bg-headerBackground transition duration-500 shadow flex justify-between w-full">
       <div className="text-colorDark dark:text-colorLight mx-auto px-4 md:px-8 py-7 md:py-6 max-w-screen-xl flex justify-between transition duration-500 w-full">
         <Link
           to="/"

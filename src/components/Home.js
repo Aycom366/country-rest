@@ -143,7 +143,7 @@ function Home() {
             <>
               {/* single country container */}
               {filterCountries.map((country, index) => {
-                const { flags, continent, population, capital, name } = country;
+                const { flags, region, population, capital, name } = country;
                 return (
                   <Link
                     data-aos="fade-up"
@@ -157,7 +157,7 @@ function Home() {
                       <img
                         className="w-full h-full object-cover "
                         aria-label="Flags Image"
-                        src={flags[0]}
+                        src={flags.svg}
                         alt={name}
                       />
                     </div>
@@ -174,8 +174,7 @@ function Home() {
                           </span>
                         </p>
                         <p className="font-bold text-colorDark dark:text-colorLight mb-2 text-small leading-4">
-                          Region:{" "}
-                          <span className="font-normal">{continent}</span>
+                          Region: <span className="font-normal">{region}</span>
                         </p>
                         <p className="font-bold text-colorDark dark:text-colorLight text-small leading-4">
                           Capital:{" "}

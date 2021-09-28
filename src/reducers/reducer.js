@@ -42,7 +42,7 @@ export const reducer = (state, action) => {
       if (state.Region !== "All") {
         tempcountry = state.countries.filter(
           (country) =>
-            country.name.startsWith(name) && country.continent === state.Region
+            country.name.startsWith(name) && country.region === state.Region
         );
       } else {
         tempcountry = state.countries.filter((country) =>
@@ -68,11 +68,11 @@ export const reducer = (state, action) => {
       } else if (action.modify !== "") {
         const searchTerm = formatLetter(action.modify);
         tempCountry = state.countries.filter(
-          (region) => region.continent === name && region.name.match(searchTerm)
+          (region) => region.region === name && region.name.match(searchTerm)
         );
       } else {
         tempCountry = state.countries.filter(
-          (region) => region.continent === name
+          (region) => region.region === name
         );
       }
       return {

@@ -23,7 +23,7 @@ function App() {
     >
       <Router>
         <ScrollToTop />
-        <div className=" h-full w-full bg-primary dark:bg-secondary">
+        <div className="overflow-hidden h-full w-full bg-primary dark:bg-secondary">
           <Header />
           <Switch>
             <Route exact path="/" component={Home} />
